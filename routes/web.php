@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Auth\SocialiteController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,4 +19,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
 require __DIR__.'/auth.php';
+
+
+Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect'])->name('redirect');
+
+Route::get('/auth/{provider}/callback', [SocialiteController::class, 'callback'])->name('callback');
